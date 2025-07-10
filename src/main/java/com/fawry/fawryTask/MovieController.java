@@ -1,0 +1,53 @@
+package com.fawry.fawryTask;
+
+import com.fawry.fawryTask.model.Movie;
+import com.fawry.fawryTask.service.MovieService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+
+@RestController
+public class MovieController {
+
+    @Autowired
+    private MovieService service;
+
+
+
+    @GetMapping("movie/{imdbId}")
+    public Movie getMovieAdmin(@PathVariable String imdbId){
+//        RestTemplate restTemplate = new RestTemplate();
+//        String url = OMDB_URL + imdbId;
+//        return restTemplate.getForObject(url, Movie.class);
+        return service.getMovie(imdbId);
+    }
+
+
+
+    @PostMapping("movie")
+    public void addMovie(@RequestBody Movie movie){
+        service.addMovieAdmin(movie);
+    }
+
+    @GetMapping("movie/user/{title}")
+    public ResponseEntity<Movie> getMovieById(@PathVariable String title) {
+        Movie movie = service.getMovieBytitle(title);
+        return ResponseEntity.ok(movie);
+    }
+
+
+    @DeleteMapping("movie/{id}")
+    public void deleteMovie(@PathVariable long id){
+        service.deleteMovieAdmin(id);
+    }
+    @GetMapping("movies")
+    public List<Movie> getAllMovies() {
+        return service.getAllMovies();
+    }
+
+
+
+}
