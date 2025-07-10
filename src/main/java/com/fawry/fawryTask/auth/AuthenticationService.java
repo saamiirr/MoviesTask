@@ -26,7 +26,7 @@ public class AuthenticationService {
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.User)
+                .role(request.getRole() == null ? Role.User : request.getRole())
                 .build();
 
         repository.save(user);

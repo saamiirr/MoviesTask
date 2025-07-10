@@ -4,19 +4,22 @@ import com.fawry.fawryTask.model.Movie;
 import com.fawry.fawryTask.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
+
 public class MovieController {
 
     @Autowired
     private MovieService service;
 
 
-
+    @PreAuthorize("hasRole('Admin')")
     @GetMapping("movie/{imdbId}")
     public Movie getMovieAdmin(@PathVariable String imdbId){
 //        RestTemplate restTemplate = new RestTemplate();
@@ -27,6 +30,7 @@ public class MovieController {
 
 
 
+    @PreAuthorize("hasRole('Admin')")
     @PostMapping("movie")
     public void addMovie(@RequestBody Movie movie){
         service.addMovieAdmin(movie);
