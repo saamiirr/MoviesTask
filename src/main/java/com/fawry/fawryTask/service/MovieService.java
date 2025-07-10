@@ -41,6 +41,11 @@ public class MovieService {
         orElseThrow(() -> new RuntimeException("Movie not found with title: " + title));
     }
 
+    public Movie getMovieById(Long id) {
+        return repo.findById(id).
+                orElseThrow(() -> new RuntimeException("Movie not found with id: " + id));
+    }
+
     public List<Movie> getAllMovies() {
         return repo.findAll();
     }

@@ -37,12 +37,19 @@ public class MovieController {
     }
 
     @GetMapping("movie/user/{title}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable String title) {
+    public ResponseEntity<Movie> getMovieByTitle(@PathVariable String title) {
         Movie movie = service.getMovieBytitle(title);
         return ResponseEntity.ok(movie);
     }
 
+    @GetMapping("movie/user/{id}")
+    public ResponseEntity<Movie> getMovieById(@PathVariable Long id) {
+        Movie movie = service.getMovieById(id);
+        return ResponseEntity.ok(movie);
+    }
 
+
+    @PreAuthorize("hasRole('Admin')")
     @DeleteMapping("movie/{id}")
     public void deleteMovie(@PathVariable long id){
         service.deleteMovieAdmin(id);
