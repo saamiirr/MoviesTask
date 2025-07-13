@@ -1,4 +1,4 @@
-package com.fawry.fawryTask;
+package controller;
 
 import com.fawry.fawryTask.model.Movie;
 import com.fawry.fawryTask.service.MovieService;
@@ -19,7 +19,7 @@ public class MovieController {
     private MovieService service;
 
 
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasAuthority('Admin')")
     @GetMapping("movie/{imdbId}")
     public Movie getMovieAdmin(@PathVariable String imdbId){
 //        RestTemplate restTemplate = new RestTemplate();
